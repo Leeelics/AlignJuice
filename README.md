@@ -2,8 +2,17 @@
 
 **高质量对齐数据管理框架** - 将粗筛数据转化为高质量 LLM 对齐数据
 
+[![CI](https://github.com/Leeelics/AlignJuice/actions/workflows/ci.yml/badge.svg)](https://github.com/Leeelics/AlignJuice/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/astral-sh/ruff)
+
+<p align="center">
+  <a href="#快速开始">快速开始</a> •
+  <a href="#核心特性">核心特性</a> •
+  <a href="#文档">文档</a> •
+  <a href="CONTRIBUTING.md">贡献指南</a>
+</p>
 
 ## 核心理念
 
@@ -143,6 +152,39 @@ llm:
 - [项目详细说明](docs/PROJECT_OVERVIEW.md) - 完整的设计思想和架构说明
 - [notebooks/](notebooks/) - Jupyter 交互式示例
 
+## 安装
+
+```bash
+# 从 PyPI 安装 (推荐)
+pip install alignjuice
+
+# 从源码安装
+git clone https://github.com/Leeelics/AlignJuice.git
+cd AlignJuice
+pip install -e ".[all]"
+```
+
+## 开发
+
+```bash
+# 克隆仓库
+git clone https://github.com/Leeelics/AlignJuice.git
+cd AlignJuice
+
+# 安装开发依赖
+pip install -e ".[dev]"
+
+# 运行测试
+pytest
+
+# 代码检查
+ruff check alignjuice/
+ruff format alignjuice/
+mypy alignjuice/
+```
+
+查看 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何贡献代码。
+
 ## License
 
-MIT License
+MIT License - 查看 [LICENSE](LICENSE) 了解详情。
