@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "alignjuice"
+version = "0.1.0"
+description = "A modular framework for managing, creating, and evaluating high-quality alignment data"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "AlignJuice Team" }
+]
+keywords = ["alignment", "data-quality", "llm", "machine-learning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+    "click>=8.0.0",
+    "polars>=0.20.0",
+    "rich>=13.0.0",
+    "httpx>=0.25.0",
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.24.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.1.0",
+    "mypy>=1.0.0",
+]
+notebook = [
+    "jupyter>=1.0.0",
+    "ipywidgets>=8.0.0",
+    "matplotlib>=3.7.0",
+    "plotly>=5.15.0",
+]
+cleanlab = [
+    "cleanlab>=2.5.0",
+]
+all = [
+    "alignjuice[dev,notebook,cleanlab]",
+]
+
+[project.scripts]
+alignjuice = "alignjuice.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/alignjuice/alignjuice"
+Documentation = "https://alignjuice.readthedocs.io"
+Repository = "https://github.com/alignjuice/alignjuice"
+
+[tool.hatch.build.targets.wheel]
+packages = ["alignjuice"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

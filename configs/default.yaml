@@ -1,0 +1,100 @@
+# AlignJuice Default Pipeline Configuration
+
+name: alignjuice_default
+version: "1.0.0"
+
+# Global settings
+checkpoint_enabled: true
+checkpoint_dir: .checkpoints
+parallel_workers: 4
+
+# Data format settings
+input_format: jsonl
+output_format: jsonl
+
+# Default thresholds
+dedup_threshold: 0.95
+quality_threshold: 0.8
+target_samples: 1000
+
+# LLM configuration
+llm:
+  backend: ollama  # ollama, openai, anthropic, vllm
+  model: phi3:medium
+  temperature: 0.3
+  max_tokens: 2048
+  fallback_backend: openai  # Fallback if primary fails
+
+# Embedding configuration
+embedding:
+  backend: sentence_transformers
+  model: all-MiniLM-L6-v2
+  batch_size: 32
+
+# Pipeline stages
+stages:
+  # Stage 1: Data-Juicer based processing
+  - name: s1_data_juicer
+    operators:
+      - name: exact_dedup
+        enabled: true
+        params:
+          field: instruction
+
+      - name: semantic_dedup
+        enabled: true
+        params:
+          threshold: 0.95
+          field: instruction
+
+      - name: quality_filter
+        enabled: true
+        params:
+          threshold: 0.8
+
+      - name: diversity_filter
+        enabled: true
+        params:
+          target_count: 1500
+          selection_method: maxmin
+
+  # Stage 2: Knowledge filtering + LLM synthesis
+  - name: s2_knowledge_filter
+    operators:
+      - name: knowledge_filter
+        enabled: true
+        params:
+          top_k: 1200
+
+      - name: llm_synthesis
+        enabled: true
+        params:
+          synthesis_style: textbook
+          target_samples: low_knowledge
+          quality_threshold: 0.5
+
+      - name: knowledge_filter
+        enabled: true
+        params:
+          top_k: 1000
+
+  # Stage 3: Reasoning enhancement + Noise cleaning
+  - name: s3_reasoning_enhance
+    operators:
+      - name: reasoning_chain
+        enabled: true
+        params:
+          chain_style: step_by_step
+          target_category: reasoning
+
+      - name: noise_detector
+        enabled: true
+        params:
+          method: heuristic
+          action_error: remove
+          action_redundancy: remove
+          action_ambiguity: flag
+
+  # Stage 4: Sandbox evaluation
+  - name: s4_sandbox_eval
+    operators: []
