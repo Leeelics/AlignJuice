@@ -1,0 +1,42 @@
+{
+  "baseline_1k": {
+    "file_name": "baseline_1k.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  },
+  "baseline_3k": {
+    "file_name": "baseline_3k.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  },
+  "baseline_10k": {
+    "file_name": "baseline_10k.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  },
+  "alignjuice_1k": {
+    "file_name": "alignjuice_1k.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  },
+  "alignjuice_3k": {
+    "file_name": "alignjuice_3k.json",
+    "columns": {
+      "prompt": "instruction",
+      "query": "input",
+      "response": "output"
+    }
+  }
+}
